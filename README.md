@@ -1,6 +1,12 @@
 ## **Projet Infrastructre Cloud - 03/10/2022**
 
 #### **Membres du projet**
+- Pierre Da Silva
+- Antoine Zachariades
+- Valentin Malo
+- Clément Osche
+
+#### Objectif 
 La base de données serait atteignable via une passerelle internet.
 L’objectif serait d’apporter une solution de scalabilité également.
 Terraform pour déployer.
