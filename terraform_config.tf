@@ -21,10 +21,11 @@ provider "scaleway" {
 }
 
 # Partie 1.1.
-
 # Création Instance Serveur sur Scaleway 1
 
+# NE JAMAIS COMMENTER LES LIGNES EN DESSOUS --
 resource "scaleway_instance_ip" "public_ip" {}
+# --
 
 resource "scaleway_instance_volume" "data1" {
   size_in_gb = 10
@@ -55,11 +56,14 @@ resource "scaleway_rdb_instance" "bdd1" {
   volume_size_in_gb = 10
 }
 
-# Partie 1.2.
+# ---------------------------------------------------------------------------
 
+# Partie 1.2.
 # Création Instance Serveur sur Scaleway 2
 
+# NE JAMAIS COMMENTER LES LIGNES EN DESSOUS --
 resource "scaleway_instance_ip" "public_ip2" {}
+# --
 
 resource "scaleway_instance_volume" "data2" {
   size_in_gb = 10
@@ -77,11 +81,31 @@ resource "scaleway_instance_server" "instance2" {
 
 # Création Load Balancer sur Scaleway
 
+# NE JAMAIS COMMENTER LES LIGNES EN DESSOUS --
 resource "scaleway_lb_ip" "public_ip3" {
   zone = "fr-par-1"
 }
+# --
 
-resource "scaleway_lb" "base" {
+resource "scaleway_lb_backend" "backend1" {
+  lb_id            = scaleway_lb.lb1.id
+  name             = "backend1"
+  forward_protocol = "http"
+  forward_port     = "80"
+
+#  health_check_http {
+#    uri = "www.test.com/health"
+#  }
+}
+
+resource "scaleway_lb_frontend" "frontend1" {
+  lb_id        = scaleway_lb.lb1.id
+  backend_id   = scaleway_lb_backend.backend1.id
+  name         = "frontend1"
+  inbound_port = "80"
+}
+
+resource "scaleway_lb" "lb1" {
   name   = "Load_Balancer_1_Projet"
   ip_id  = scaleway_lb_ip.public_ip3.id
   zone   = scaleway_lb_ip.public_ip3.zone
