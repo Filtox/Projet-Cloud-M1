@@ -1,1 +1,49 @@
-# Projet-Cloud-M1 Coucou Pierre
+## **Projet Infrastructre Cloud - 03/10/2022**
+
+#### **Membres du projet**
+
+- Pierre Da Silva
+- Antoine Zachariades
+- Valentin Malo
+- Clément Osche
+
+#### Objectif
+
+:::info
+La base de données serait atteignable via une passerelle internet.
+L’objectif serait d’apporter une solution de scalabilité également.
+Terraform pour déployer.
+:::
+
+#### **Cloud Provider (Scaleway et Microsoft Azure)**
+
+**Partie 1. Début de l'infrastructure de base sur Scaleway**
+* Partie 1.1. Création de l'infrastructure
+    * 1 instance
+    * 1 base de données
+
+* Partie 1.2. Haute disponibilité
+    * 1 instance
+    * 1 load balancer
+    * 1 adresse IP publique pour le load balancer
+
+
+---
+
+**Partie 2. Création d'une nouvelle instance sur Microsoft Azure et mise en place d'une gateway entre les 2 Cloud Provider**
+* 1 instance
+* 1 gateway (entre Azure et Scaleway)
+
+---
+
+**Partie 3. Création d'une base de données sur Microsoft Azure et mise en place de la réplication entre les bases de données des 2 Cloud Provider**
+* 1 base de données
+
+:::warning
+Il faudra mettre en place une réplication *en temps réel* entre les 2 bases de données.
+:::
+
+---
+
+Voir image wordpress - ou créer une image a la main (wordpress)
+Docker?
