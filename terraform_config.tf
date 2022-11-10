@@ -42,7 +42,7 @@ resource "scaleway_instance_server" "instance1" {
 
 # Création Instance Base de données sur Scaleway
 
-resource "scaleway_rdb_instance" "main" {
+resource "scaleway_rdb_instance" "bdd1" {
   name              = "BDD_1_Projet"
   node_type         = "db-dev-s"
   engine            = "MySQL-8"
@@ -53,4 +53,37 @@ resource "scaleway_rdb_instance" "main" {
   region            = "fr-par"
   volume_type       = "bssd"
   volume_size_in_gb = 10
+}
+
+# Partie 1.2.
+
+# Création Instance Serveur sur Scaleway 2
+
+resource "scaleway_instance_ip" "public_ip2" {}
+
+resource "scaleway_instance_volume" "data2" {
+  size_in_gb = 10
+  type = "b_ssd"
+}
+
+resource "scaleway_instance_server" "instance2" {
+  name  = "Instance_2_Projet"
+  image = "ubuntu_jammy"
+  type  = "DEV1-S"
+  ip_id = scaleway_instance_ip.public_ip2.id
+  additional_volume_ids = [ scaleway_instance_volume.data2.id ]
+}
+# Ajout groupe de sécurité
+
+# Création Load Balancer sur Scaleway
+
+resource "scaleway_lb_ip" "public_ip3" {
+  zone = "fr-par-1"
+}
+
+resource "scaleway_lb" "base" {
+  name   = "Load_Balancer_1_Projet"
+  ip_id  = scaleway_lb_ip.public_ip3.id
+  zone   = scaleway_lb_ip.public_ip3.zone
+  type   = "LB-S"
 }
