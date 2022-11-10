@@ -10,7 +10,6 @@
 La base de données serait atteignable via une passerelle internet.
 L’objectif serait d’apporter une solution de scalabilité également.
 Terraform pour déployer.
-:::
 
 #### **Cloud Provider (Scaleway et Microsoft Azure)**
 
