@@ -1,24 +1,29 @@
 ## **Projet Infrastructre Cloud - 03/10/2022**
 
 #### **Membres du projet**
+
 - Pierre Da Silva
 - Antoine Zachariades
 - Valentin Malo
 - Clément Osche
 
-#### Objectif 
+#### Objectif
+
 La base de données serait atteignable via une passerelle internet.
 L’objectif serait d’apporter une solution de scalabilité également.
 Terraform pour déployer.
-:::
 
 #### **Cloud Provider (Scaleway et Microsoft Azure)**
 
-**Partie 1. Début de l'infrastrure de base sur Scaleway**
-*  2 instances
-*  1 load balancer
-*  1 adresse IP publique
-*  1 base de données
+**Partie 1. Début de l'infrastructure de base sur Scaleway**
+* Partie 1.1. Création de l'infrastructure
+    * 1 instance
+    * 1 base de données
+
+* Partie 1.2. Haute disponibilité
+    * 1 instance
+    * 1 load balancer
+    * 1 adresse IP publique pour le load balancer
 
 ---
 
@@ -33,10 +38,4 @@ Terraform pour déployer.
 
 Il faudra mettre en place une réplication *en temps réel* entre les 2 bases de données.
 
-
 ---
-
-
-
-
-
