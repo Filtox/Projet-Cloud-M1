@@ -31,9 +31,8 @@ Terraform pour déployer.
 **Partie 3. Création d'une base de données sur Microsoft Azure et mise en place de la réplication entre les bases de données des 2 Cloud Provider**
 * 1 base de données
 
-:::warning
 Il faudra mettre en place une réplication *en temps réel* entre les 2 bases de données.
-:::
+
 
 ---
 
