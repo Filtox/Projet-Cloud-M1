@@ -20,24 +20,59 @@ provider "scaleway" {
   project_id = "0c1671e0-2f42-4ed2-8799-14f144ecb947"
 }
 
+# Partie 2.
+# Création Instance Serveur NFS sur Scaleway
+
+# NE JAMAIS COMMENTER LES LIGNES EN DESSOUS --
+resource "scaleway_instance_ip" "public_ipNFS" {}
+# --
+
+# resource "scaleway_instance_volume" "dataNFS" {
+  # size_in_gb = 10
+  # type = "b_ssd"
+# }
+
+resource "scaleway_instance_server" "instanceNFS" {
+  name  = "Instance_NFS_Projet"
+  image = "ubuntu_jammy"
+  type  = "DEV1-S"
+  ip_id = scaleway_instance_ip.public_ipNFS.id
+  # additional_volume_ids = [ scaleway_instance_volume.dataNFS.id ]
+  
+  user_data = {
+    foo        = "bar"
+    cloud-init = file("server_nfs.sh")
+  }
+}
+
 # Partie 1.1.
-# Création Instance Serveur sur Scaleway 1
+# Création Instance Serveur 1 sur Scaleway
 
 # NE JAMAIS COMMENTER LES LIGNES EN DESSOUS --
 resource "scaleway_instance_ip" "public_ip" {}
 # --
 
-resource "scaleway_instance_volume" "data1" {
-  size_in_gb = 10
-  type = "b_ssd"
+resource "time_sleep" "wait_120" {
+  create_duration = "30s"
 }
+
+# resource "scaleway_instance_volume" "data1" {
+  # size_in_gb = 10
+  # type = "b_ssd"
+# }
 
 resource "scaleway_instance_server" "instance1" {
   name  = "Instance_1_Projet"
   image = "ubuntu_jammy"
   type  = "DEV1-S"
   ip_id = scaleway_instance_ip.public_ip.id
-  additional_volume_ids = [ scaleway_instance_volume.data1.id ]
+  # additional_volume_ids = [ scaleway_instance_volume.data1.id ]
+  depends_on = [ time_sleep.wait_120 ]
+
+  user_data = {
+    foo        = "bar"
+    cloud-init = file("wordpress.sh")
+  }
 }
 # Ajout groupe de sécurité
 
@@ -59,26 +94,6 @@ resource "scaleway_rdb_instance" "bdd1" {
 # ---------------------------------------------------------------------------
 
 # Partie 1.2.
-# Création Instance Serveur sur Scaleway 2
-
-# NE JAMAIS COMMENTER LES LIGNES EN DESSOUS --
-resource "scaleway_instance_ip" "public_ip2" {}
-# --
-
-resource "scaleway_instance_volume" "data2" {
-  size_in_gb = 10
-  type = "b_ssd"
-}
-
-resource "scaleway_instance_server" "instance2" {
-  name  = "Instance_2_Projet"
-  image = "ubuntu_jammy"
-  type  = "DEV1-S"
-  ip_id = scaleway_instance_ip.public_ip2.id
-  additional_volume_ids = [ scaleway_instance_volume.data2.id ]
-}
-# Ajout groupe de sécurité
-
 # Création Load Balancer sur Scaleway
 
 # NE JAMAIS COMMENTER LES LIGNES EN DESSOUS --
@@ -93,9 +108,15 @@ resource "scaleway_lb_backend" "backend1" {
   forward_protocol = "http"
   forward_port     = "80"
 
-#  health_check_http {
-#    uri = "www.test.com/health"
-#  }
+  health_check_tcp {}
+
+  # health_check_http {
+   # uri = "/wp-admin/setup-config.php"
+  # }
+  
+  server_ips = [
+    scaleway_instance_ip.public_ip.address
+  ]
 }
 
 resource "scaleway_lb_frontend" "frontend1" {
