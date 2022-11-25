@@ -1,7 +1,7 @@
 # Provider Scaleway avec Terraform
 
 variable "project_id" {
-  type        = string
+  type    = string
   default = "391cf766-a0e3-45ce-83bd-xxxxxxxxxxx"
 }
 terraform {
@@ -13,19 +13,22 @@ terraform {
   required_version = ">= 0.13"
 }
 provider "scaleway" {
-  zone   = "fr-par-1"
-  region = "fr-par"
+  zone   = "nl-ams-1"
+  region = "nl-ams"
   access_key = "SCW06N2ZKQN9DTFD8DF4"
   secret_key = "c1b7d567-865d-4c74-9a01-8f78b653e42c"
   project_id = "0c1671e0-2f42-4ed2-8799-14f144ecb947"
 }
 
-# Partie 2.
 # Création Instance Serveur NFS sur Scaleway
 
 # NE JAMAIS COMMENTER LES LIGNES EN DESSOUS --
-resource "scaleway_instance_ip" "public_ipNFS" {}
+# resource "scaleway_instance_ip" "public_ipNFS" {}
 # --
+
+resource "time_sleep" "wait_120_1" {
+  create_duration = "60s"
+}
 
 # resource "scaleway_instance_volume" "dataNFS" {
   # size_in_gb = 10
@@ -33,27 +36,30 @@ resource "scaleway_instance_ip" "public_ipNFS" {}
 # }
 
 resource "scaleway_instance_server" "instanceNFS" {
-  name  = "Instance_NFS_Projet"
-  image = "ubuntu_jammy"
-  type  = "DEV1-S"
-  ip_id = scaleway_instance_ip.public_ipNFS.id
+  name   = "Instance_NFS_Projet"
+  image  = "ubuntu_jammy"
+  type   = "DEV1-S"
+  # ip_id  = scaleway_instance_ip.public_ipNFS.id
+  ip_id  = "b81f27eb-cc57-49ef-9d9b-9bbb5c5a7eff"
+  zone   = "nl-ams-1"
+  depends_on = [time_sleep.wait_120_1]
+
   # additional_volume_ids = [ scaleway_instance_volume.dataNFS.id ]
-  
+
   user_data = {
     foo        = "bar"
     cloud-init = file("server_nfs.sh")
   }
 }
 
-# Partie 1.1.
 # Création Instance Serveur 1 sur Scaleway
 
 # NE JAMAIS COMMENTER LES LIGNES EN DESSOUS --
-resource "scaleway_instance_ip" "public_ip" {}
+# resource "scaleway_instance_ip" "public_ip" {}
 # --
 
 resource "time_sleep" "wait_120" {
-  create_duration = "30s"
+  create_duration = "120s"
 }
 
 # resource "scaleway_instance_volume" "data1" {
@@ -62,12 +68,15 @@ resource "time_sleep" "wait_120" {
 # }
 
 resource "scaleway_instance_server" "instance1" {
-  name  = "Instance_1_Projet"
-  image = "ubuntu_jammy"
-  type  = "DEV1-S"
-  ip_id = scaleway_instance_ip.public_ip.id
+  name   = "Instance_1_Projet"
+  image  = "ubuntu_jammy"
+  type   = "DEV1-S"
+  # ip_id  = scaleway_instance_ip.public_ip.id
+  ip_id  = "06a34dcf-2927-4aee-8b8e-6e9ba4e79923"
+  zone   = "nl-ams-1"
+  depends_on = [time_sleep.wait_120]
+
   # additional_volume_ids = [ scaleway_instance_volume.data1.id ]
-  depends_on = [ time_sleep.wait_120 ]
 
   user_data = {
     foo        = "bar"
@@ -79,26 +88,23 @@ resource "scaleway_instance_server" "instance1" {
 # Création Instance Base de données sur Scaleway
 
 resource "scaleway_rdb_instance" "bdd1" {
-  name              = "BDD_1_Projet"
+  name              = "wordpress"
   node_type         = "db-dev-s"
   engine            = "MySQL-8"
   is_ha_cluster     = false
   disable_backup    = true
   user_name         = "Administrateur"
   password          = "P@ssw0rd!"
-  region            = "fr-par"
+  region            = "nl-ams"
   volume_type       = "bssd"
   volume_size_in_gb = 10
 }
 
-# ---------------------------------------------------------------------------
-
-# Partie 1.2.
 # Création Load Balancer sur Scaleway
 
 # NE JAMAIS COMMENTER LES LIGNES EN DESSOUS --
 resource "scaleway_lb_ip" "public_ip3" {
-  zone = "fr-par-1"
+   zone = "nl-ams-1"
 }
 # --
 
@@ -113,9 +119,11 @@ resource "scaleway_lb_backend" "backend1" {
   # health_check_http {
    # uri = "/wp-admin/setup-config.php"
   # }
-  
+
   server_ips = [
-    scaleway_instance_ip.public_ip.address
+    # scaleway_instance_ip.public_ip.address
+    "51.158.175.56"
+    # "" # IP Instance serveur Azure
   ]
 }
 
@@ -127,8 +135,9 @@ resource "scaleway_lb_frontend" "frontend1" {
 }
 
 resource "scaleway_lb" "lb1" {
-  name   = "Load_Balancer_1_Projet"
-  ip_id  = scaleway_lb_ip.public_ip3.id
-  zone   = scaleway_lb_ip.public_ip3.zone
-  type   = "LB-S"
+  name  = "Load_Balancer_1_Projet"
+  ip_id = scaleway_lb_ip.public_ip3.id
+  zone  = scaleway_lb_ip.public_ip3.zone
+  # zone  = "nl-ams-1"
+  type  = "LB-S"
 }
