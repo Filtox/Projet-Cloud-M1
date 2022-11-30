@@ -5,4 +5,4 @@ az network vnet create --name vnet_02 --resource-group Projet_Cloud01
 Création de la vm :
 az vm create --name instance_02 --resource-group Projet_Cloud01 --location francecentral --image UbuntuLTS --size Standard_B1ls --authentication-type password --admin-username usercloud --admin-password ynovtoulouse31! --vnet-name vnet_02 --public-ip-address public_ip_02
 Ouverture des ports : 
-az vm open-port --port 22,80,443 --resource-group Projet_Cloud01 --name instance_02
+az vm open-port --port 80,443 --resource-group Projet_Cloud01 --name instance_02
