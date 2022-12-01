@@ -127,7 +127,7 @@ resource "scaleway_lb_backend" "backend1" {
   server_ips = [
     # scaleway_instance_ip.public_ip.address
     # IP Instance serveur 1 Wordpress sur Scaleway - Correspond à l'IP de l'ID 06a34dcf-2927-4aee-8b8e-6e9ba4e79923
-    "51.158.175.56"
+    "51.158.175.56",
     # IP Instance serveur 2 Wordpress sur Azure
     "51.11.211.14"
   ]
@@ -145,5 +145,5 @@ resource "scaleway_lb" "lb1" {
   ip_id = scaleway_lb_ip.public_ip3.id
   zone  = scaleway_lb_ip.public_ip3.zone
   # zone  = "nl-ams-1"
-  type  = "LB-S"
+  type  = "LB-GP-L"
 }
