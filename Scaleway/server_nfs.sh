@@ -1,8 +1,11 @@
 #!/bin/bash
 sudo apt update
 sudo apt install nfs-kernel-server -y
+sudo apt install unzip -y
 sudo mkdir -p /mnt/nfs_share
-sudo chown -R nobody:nogroup /mnt/nfs_share/
+wget https://wordpress.org/latest.zip
+unzip latest.zip
+sudo cp -r wordpress/* /mnt/nfs_share/
 sudo chmod 777 /mnt/nfs_share/
 sudo echo "/mnt/nfs_share wp1.pierreds.studio(rw,sync,no_subtree_check)" >> /etc/exports
 sudo echo "/mnt/nfs_share wp2.pierreds.studio(rw,sync,no_subtree_check)" >> /etc/exports
