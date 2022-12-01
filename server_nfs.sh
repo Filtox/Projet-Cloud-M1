@@ -12,3 +12,4 @@ sudo ufw allow from 51.158.175.56 to any port nfs
 sudo ufw allow from IP_WORDPRESS_2 to any port nfs
 sudo ufw allow 22
 sudo ufw enable
+sudo chown -R www-data:www-data /mnt/nfs_share/
