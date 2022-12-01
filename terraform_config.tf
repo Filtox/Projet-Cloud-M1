@@ -35,8 +35,6 @@ resource "time_sleep" "wait_120_1" {
   # type = "b_ssd"
 # }
 
-# ip_id récupére l'IP publique et l'ajoute à notre instance via l'ID
-
 resource "scaleway_instance_server" "instanceNFS" {
   name   = "Instance_NFS_Projet"
   image  = "ubuntu_jammy"
@@ -69,8 +67,6 @@ resource "time_sleep" "wait_120" {
   # type = "b_ssd"
 # }
 
-# ip_id récupére l'IP publique et l'ajoute à notre instance via l'ID
-
 resource "scaleway_instance_server" "instance1" {
   name   = "Instance_1_Projet"
   image  = "ubuntu_jammy"
@@ -97,8 +93,8 @@ resource "scaleway_rdb_instance" "bdd1" {
   engine            = "MySQL-8"
   is_ha_cluster     = false
   disable_backup    = true
-  user_name         = "Administrateur"
-  password          = "P@ssw0rd!"
+  user_name         = "userbdd"
+  password          = "EWiwcs!d!9minG7vsr$Z#$XNbQBwa!WcyBQHz163"
   region            = "nl-ams"
   volume_type       = "bssd"
   volume_size_in_gb = 10
@@ -129,7 +125,7 @@ resource "scaleway_lb_backend" "backend1" {
     # IP Instance serveur 1 Wordpress sur Scaleway - Correspond à l'IP de l'ID 06a34dcf-2927-4aee-8b8e-6e9ba4e79923
     "51.158.175.56",
     # IP Instance serveur 2 Wordpress sur Azure
-    "51.11.211.14"
+    "4.212.88.159"
   ]
 }
 
