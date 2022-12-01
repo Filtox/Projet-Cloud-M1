@@ -1,3 +1,4 @@
+#!/bin/bash
 sudo apt update
 sudo apt install apache2 -y
 sudo apt install php php-mysql php-cgi php-cli php-gd -y
