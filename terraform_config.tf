@@ -97,8 +97,8 @@ resource "scaleway_rdb_instance" "bdd1" {
   engine            = "MySQL-8"
   is_ha_cluster     = false
   disable_backup    = true
-  user_name         = "Administrateur"
-  password          = "P@ssw0rd!"
+  user_name         = "userbdd"
+  password          = "EWiwcs!d!9minG7vsr$Z#$XNbQBwa!WcyBQHz163"
   region            = "nl-ams"
   volume_type       = "bssd"
   volume_size_in_gb = 10
