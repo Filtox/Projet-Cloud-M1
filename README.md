@@ -14,7 +14,6 @@ Les deux Cloud Provider sont Azure et Scaleway.
 Sur Azure est mis en place un serveur web et sur Scaleway est mis en place un serveur web, une base de données, un serveur permettant la redondance entre les deux serveurs web, et un load balancer.
 A terme, l'objectif final serait de mettre en place une réplication en temps réel entre 2 bases de données qui seront chacune sur leur propre Cloud Provider.
 
-
 #### **Cloud Provider : Scaleway et Microsoft Azure**
 
 * Sur Scaleway
@@ -72,3 +71,11 @@ Une fois la connexion établie, l'instace NFS va répliquer le dossier Wordpress
 
 * L'instance 2 Wordpress, lors de sa création (Ubuntu), va exécuter un script identique à celui pour l'instance 1 Wordpress sauf qu'il n'installe pas Wordpress. Il se connecte aussi à l'instance NFS et réplique le dossier Wordpress.
 C'est grâce au serveur NFS qu'il va répliquer l'instance 1 Wordpress et obtenir tous les fichiers afin d'accéder au Wordpress.
+
+---
+
+#### **Essayer notre projet**
+
+Si vous souhaitez exécuter notre Terraform et notre Powershell :
+
+* 
