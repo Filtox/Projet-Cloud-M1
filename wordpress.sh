@@ -10,4 +10,4 @@ sudo chown -R www-data:www-data /var/www/html/
 sudo chmod -R 755 /var/www/html/
 sudo rm -rf /var/www/html/index.html
 sudo apt install nfs-common -y
-sudo mount nfs.pierreds.studio:/mnt/nfs_share /var/www/html
+sudo mount 51.15.100.73:/mnt/nfs_share /var/www/html
