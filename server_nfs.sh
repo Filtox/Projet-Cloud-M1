@@ -9,6 +9,6 @@ sudo echo "/mnt/nfs_share wp2.pierreds.studio(rw,sync,no_subtree_check)" >> /etc
 sudo exportfs -a
 sudo systemctl restart nfs-kernel-server
 sudo ufw allow from 51.158.175.56 to any port nfs
-sudo ufw allow from wp2.pierreds.studio to any port nfs
+sudo ufw allow from IP_WORDPRESS_2 to any port nfs
 sudo ufw allow 22
 sudo ufw enable
