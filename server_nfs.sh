@@ -8,7 +8,7 @@ sudo echo "/mnt/nfs_share wp1.pierreds.studio/24(rw,sync,no_subtree_check)" >> /
 sudo echo "/mnt/nfs_share wp2.pierreds.studio/24(rw,sync,no_subtree_check)" >> /etc/exports
 sudo exportfs -a
 sudo systemctl restart nfs-kernel-server
-sudo ufw allow from wp1.pierreds.studio/24 to any port nfs
-sudo ufw allow from wp2.pierreds.studio/24 to any port nfs
+sudo ufw allow from wp1.pierreds.studio to any port nfs
+sudo ufw allow from wp2.pierreds.studio to any port nfs
 sudo ufw allow 22
 sudo ufw enable
