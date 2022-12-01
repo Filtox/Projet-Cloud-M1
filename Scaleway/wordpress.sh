@@ -8,7 +8,6 @@ sudo mount 51.15.100.73:/mnt/nfs_share /var/www/html
 wget https://wordpress.org/latest.zip
 unzip latest.zip
 sudo cp -r wordpress/* /var/www/html/
-sudo chown -R www-data:www-data /var/www/html/
 sudo chmod -R 755 /var/www/html/
 sudo rm -rf /var/www/html/index.html
 sudo touch /etc/rc.local
