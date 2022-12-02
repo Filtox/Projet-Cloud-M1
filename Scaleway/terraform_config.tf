@@ -129,7 +129,7 @@ resource "scaleway_lb_backend" "backend1" {
     # IP Instance serveur 1 Wordpress sur Scaleway - Correspond à l'IP de l'ID 06a34dcf-2927-4aee-8b8e-6e9ba4e79923
     "51.158.175.56",
     # IP Instance serveur 2 Wordpress sur Azure
-    "20.199.81.12"
+    "4.233.219.69"
   ]
 }
 
