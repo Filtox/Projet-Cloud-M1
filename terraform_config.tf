@@ -35,6 +35,8 @@ resource "time_sleep" "wait_120_1" {
   # type = "b_ssd"
 # }
 
+# ip_id récupére l'IP publique et l'ajoute à notre instance via l'ID
+
 resource "scaleway_instance_server" "instanceNFS" {
   name   = "Instance_NFS_Projet"
   image  = "ubuntu_jammy"
@@ -66,6 +68,8 @@ resource "time_sleep" "wait_120" {
   # size_in_gb = 10
   # type = "b_ssd"
 # }
+
+# ip_id récupére l'IP publique et l'ajoute à notre instance via l'ID
 
 resource "scaleway_instance_server" "instance1" {
   name   = "Instance_1_Projet"
