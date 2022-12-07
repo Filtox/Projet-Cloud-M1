@@ -81,10 +81,6 @@ resource "scaleway_rdb_instance" "bdd1" {
 
 # Création Load Balancer sur Scaleway
 
-resource "scaleway_lb_ip" "public_ip3" {
-   zone = "nl-ams-1"
-}
-
 resource "scaleway_lb_backend" "backend1" {
   lb_id            = scaleway_lb.lb1.id
   name             = "backend1"
@@ -110,7 +106,7 @@ resource "scaleway_lb_frontend" "frontend1" {
 
 resource "scaleway_lb" "lb1" {
   name  = "Load_Balancer_1_Projet"
-  ip_id = scaleway_lb_ip.public_ip3.id
-  zone  = scaleway_lb_ip.public_ip3.zone
+  ip_id = "nl-ams-1/3f80df08-6b71-4098-a807-bb2ae45956d7"
+  zone  = "nl-ams-1"
   type  = "LB-GP-L"
 }
