@@ -87,6 +87,8 @@ resource "scaleway_lb_backend" "backend1" {
   forward_protocol = "http"
   forward_port     = "80"
 
+  health_check_delay = "5s"
+
   health_check_tcp {}
 
   server_ips = [
