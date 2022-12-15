@@ -12,7 +12,7 @@ sudo echo "/mnt/nfs_share wp2.pierreds.studio(rw,sync,no_subtree_check)" >> /etc
 sudo exportfs -a
 sudo systemctl restart nfs-kernel-server
 #sudo ufw allow from 51.158.175.56 to any port nfs
-#sudo ufw allow from 20.199.81.12 to any port nfs
+#sudo ufw allow from 4.233.219.69 to any port nfs
 sudo iptables -A INPUT -p tcp -s wp1.pierreds.studio --dport 2049 -j ACCEPT
 sudo iptables -A INPUT -p udp -s wp1.pierreds.studio --dport 2049 -j ACCEPT
 sudo iptables -A INPUT -p tcp -s wp1.pierreds.studio --dport 111 -j ACCEPT
